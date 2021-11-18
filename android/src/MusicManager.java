@@ -1,5 +1,5 @@
 package org.qtproject.example.musicmanager;
-import org.qtproject.qt5.android.QtNative;
+import org.qtproject.qt.android.QtNative;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;

@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include "IntentHandler.h"
+//#include "IntentHandler.h"
 #include "MusicManager.h"
 
 int main(int argc, char *argv[])
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 //        qDebug() << "Class not initialized or sumthing";
 //    }
     QGuiApplication app(argc, argv);
-    qmlRegisterType<IntentHandler>("com.myself", 1, 0, "IntentHandler");
+    //qmlRegisterType<IntentHandler>("com.myself", 1, 0, "IntentHandler");
     qmlRegisterType<MusicManager>("com.music", 1, 0, "MusicManager");
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

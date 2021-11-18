@@ -1,5 +1,4 @@
-QT += core quick androidextras
-
+QT += core quick
 CONFIG += c++11
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -31,7 +30,13 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
     android/gradlew.bat \
-    android/res/values/libs.xml
+    android/res/values/libs.xml \
+    images/appMenu.svg \
+    images/google_maps.svg \
+    images/place_holder.png \
+    images/spotify.svg \
+    images/storytel.svg \
+    images/strava.svg
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = \
@@ -40,7 +45,7 @@ contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
 }
 
 android{
-    QT += androidextras
+    QT += core quick
 
     MODULE_ANDROID_SOURCES.path = /
     MODULE_ANDROID_SOURCES.files = $$files($$PWD/android/*)
@@ -54,3 +59,5 @@ android{
 HEADERS += \
     IntentHandler.h \
     MusicManager.h
+
+FORMS +=
