@@ -1,4 +1,4 @@
-QT += core quick androidextras
+QT += core quick androidextras widgets
 
 CONFIG += c++11
 
@@ -31,7 +31,13 @@ DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
     android/gradlew.bat \
-    android/res/values/libs.xml
+    android/res/values/libs.xml \
+    components/images/appMenu.svg \
+    components/images/google_maps.svg \
+    components/images/place_holder.png \
+    components/images/spotify.svg \
+    components/images/storytel.svg \
+    components/images/strava.svg
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     ANDROID_PACKAGE_SOURCE_DIR = \

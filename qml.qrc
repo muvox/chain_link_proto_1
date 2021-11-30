@@ -2,6 +2,11 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>components/CircularSlider.qml</file>
-        <file>components/Player.qml</file>
+        <file>components/images/appMenu.svg</file>
+        <file>components/images/google_maps.svg</file>
+        <file>components/images/place_holder.png</file>
+        <file>components/images/spotify.svg</file>
+        <file>components/images/storytel.svg</file>
+        <file>components/images/strava.svg</file>
     </qresource>
 </RCC>

@@ -15,6 +15,9 @@ int main(int argc, char *argv[])
 //    } else {
 //        qDebug() << "Class not initialized or sumthing";
 //    }
+    qputenv("QT_QUICK_CONTROLS_STYLE", QByteArray("Material"));
+    qputenv("QT_QUICK_CONTROLS_MATERIAL_THEME", QByteArray("Dark"));
+
     QGuiApplication app(argc, argv);
     qmlRegisterType<IntentHandler>("com.myself", 1, 0, "IntentHandler");
     qmlRegisterType<MusicManager>("com.music", 1, 0, "MusicManager");
