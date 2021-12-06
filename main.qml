@@ -7,12 +7,14 @@ import com.music 1.0
 import "components"
 import QtQuick.Controls.Material 2.12
 
-Window {
+ApplicationWindow {
     id: root
     visible: true
-    visibility: Window.Maximized
+    visibility: Window.FullScreen
     Material.theme: Material.Dark
     Material.accent: Material.Purple
+    property bool play: false
+
 
     Rectangle {
         id: window
@@ -69,7 +71,7 @@ Window {
                     height: 40
                     anchors.left: parent.left
                     anchors.top: parent.top
-                    source: "components/images/place_holder.png"
+                    source: "components/images/appMenu.png"
                     anchors.leftMargin: 4
                     anchors.topMargin: 4
                     fillMode: Image.PreserveAspectFit
@@ -129,6 +131,11 @@ Window {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottomMargin: 0
 
+
+            MusicManager {
+                id: musMan
+            }
+
             Row {
                 id: recentApps
                 anchors.fill: parent
@@ -160,7 +167,7 @@ Window {
                         width: 62
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        source: "images/spotify.svg"
+                        source: "components/images/spotify.png"
                         anchors.topMargin: 0
                         anchors.bottomMargin: 0
                         fillMode: Image.PreserveAspectFit
@@ -181,6 +188,10 @@ Window {
                     focusPolicy: Qt.ClickFocus
                     flat: true
                     display: AbstractButton.IconOnly
+                    onClicked: {
+                        musMan.previous()
+                    }
+
                     Image {
                         id: image2
                         x: 0
@@ -188,7 +199,7 @@ Window {
                         width: 62
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        source: "images/strava.svg"
+                        source: "components/images/next-previous.png"
                         sourceSize.height: 62
                         sourceSize.width: 62
                         fillMode: Image.PreserveAspectFit
@@ -211,6 +222,17 @@ Window {
                     focusPolicy: Qt.ClickFocus
                     flat: true
                     display: AbstractButton.IconOnly
+
+                    onClicked: {
+                        console.log(root.play)
+                        if (root.play) {
+                            root.play = false
+                        } else {
+                            root.play = true
+                        }
+                        musMan.pause()
+                    }
+
                     Image {
                         id: image3
                         x: 0
@@ -218,7 +240,7 @@ Window {
                         width: 62
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        source: "images/google_maps.svg"
+                        source: if (root.play) {"components/images/pause.png"} else {"components/images/play.png"}
                         fillMode: Image.PreserveAspectFit
                         anchors.bottomMargin: 0
                         sourceSize.width: 62
@@ -241,6 +263,10 @@ Window {
                     focusPolicy: Qt.ClickFocus
                     flat: true
                     display: AbstractButton.IconOnly
+                    onClicked: {
+                        musMan.next()
+                    }
+
                     Image {
                         id: image4
                         x: 0
@@ -248,12 +274,13 @@ Window {
                         width: 62
                         anchors.top: parent.top
                         anchors.bottom: parent.bottom
-                        source: "images/storytel.svg"
+                        source: "components/images/next-previous.png"
                         fillMode: Image.PreserveAspectFit
                         anchors.bottomMargin: 0
                         sourceSize.width: 62
                         sourceSize.height: 62
                         anchors.topMargin: 0
+                        rotation: 180
                     }
                 }
             }
@@ -633,10 +660,12 @@ Window {
 
     // Sneaky timers to change stuff
 
+    property var allValues: [ 21.33, 23.31 ]
+
     // Change clock every 60 seconds
     Timer {
         id: timer
-        interval: 60000
+        interval: 1000
         repeat: true
         running: true
 
@@ -651,64 +680,99 @@ Window {
         interval: 1000
         repeat: true
         running: true
-
         onTriggered:
         {
             var minimum = Math.ceil(-2,0)
             var maximum = Math.floor(3,0)
-            var randomize = parseFloat(clock.text)
+            var randomize = parseFloat(speed.text)
             var randomized = randomize+(Math.random() * (maximum - minimum) + minimum)
             speed.text = randomized.toFixed(2)
+            allValues.push(randomized.toFixed(2))
+            if (!timer3.running) {
+                timer3.running = true
+            }
+        }
+    }
+
+    Timer {
+        id: timer3
+        interval: 1000
+        repeat: true
+        running: false
+
+        onTriggered:
+        {
+            var sumOfAll = 0
+
+            for (var i = 0; i < allValues.length; i++) {
+                sumOfAll = parseFloat(sumOfAll)+parseFloat(allValues[i])
+
+            }
+            var average = (sumOfAll/allValues.length).toFixed(2)
+            speedAverage.text = average
+        }
+    }
+
+    Timer {
+        id: timer4
+        interval: 5000
+        repeat: true
+        running: true
+
+        onTriggered: {
+            var currentDistance = parseFloat(distance.text)
+            distance.text = (currentDistance+0.1).toFixed(2)
+        }
+    }
+
+    property var allHearts: [ 110, 111 ]
+
+
+    Timer {
+        id: timer5
+        interval: 1000
+        repeat: true
+        running: true
+        onTriggered:
+        {
+
+            var minimum = 0
+            var maximum = 0
+            if (parseInt(heartRate.text) < 135){
+                minimum = Math.ceil(-2)
+                maximum = Math.floor(2)
+            } else {
+                minimum = Math.ceil(-3)
+                maximum = Math.floor(1)
+            }
+            var randomize = parseInt(heartRate.text)
+            var randomized = randomize+(Math.random() * (maximum - minimum) + minimum)
+            allHearts.push(parseInt(randomized))
+
+            heartRate.text = parseFloat(randomized).toFixed(0)
+
         }
     }
 
 
-    // Column layout to arrange components
+    Timer {
+        id: timer6
+        interval: 1000
+        repeat: true
+        running: true
 
+        onTriggered:
+        {
+            var sumOfAll = 0
 
-//        GridLayout {
-//            id: speedGrid
-//            Layout.fillWidth: true
-//            width: root.width
-//            height: root.height*0.20
-//            rows: 2
-//            columns: 3
+            for (var i = 0; i < allHearts.length; i++) {
+                sumOfAll = sumOfAll+allHearts[i]
 
-//            Text {
-//                color: "steelblue"
-//                Layout.columnSpan: 1
-//                Layout.rowSpan: 1
-//                Layout.row: 0
-//                Layout.column: 0
-//                text: "Km/h"
-//            }
+            }
+            var average = (sumOfAll/allHearts.length)
+            console.log(average)
 
-//            Text {
-//                Layout.columnSpan: 1
-//                Layout.rowSpan: 1
-//                Layout.row: 0
-//                Layout.column: 1
-//                text: "200.10"
-//            }
-
-//            Text {
-//                color: "steelblue"
-//                Layout.columnSpan: 1
-//                Layout.rowSpan: 1
-//                Layout.row: 0
-//                Layout.column: 2
-//                text: "250.11 avg"
-//            }
-
-
-//            Text {
-//                color: "steelblue"
-//                Layout.columnSpan: 1
-//                Layout.rowSpan: 1
-//                Layout.row: 1
-//                Layout.column: 1
-//                text: "Speed"
-//            }
-//        }
-//    }
+            heartRateAverage.text = parseFloat(average).toFixed(0)
+        }
+    }
 }

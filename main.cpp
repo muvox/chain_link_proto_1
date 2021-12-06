@@ -1,8 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QSplashScreen>
+#include <QTimer>
 #include "IntentHandler.h"
 #include "MusicManager.h"
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
@@ -15,10 +18,15 @@ int main(int argc, char *argv[])
 //    } else {
 //        qDebug() << "Class not initialized or sumthing";
 //    }
+
     qputenv("QT_QUICK_CONTROLS_STYLE", QByteArray("Material"));
     qputenv("QT_QUICK_CONTROLS_MATERIAL_THEME", QByteArray("Dark"));
 
     QGuiApplication app(argc, argv);
+    QThread::msleep(3000);
+    QtAndroid::hideSplashScreen();
+    //QTimer::singleShot(3000, Qt::CoarseTimer, &app, QtAndroid::hideSplashScreen());
+
     qmlRegisterType<IntentHandler>("com.myself", 1, 0, "IntentHandler");
     qmlRegisterType<MusicManager>("com.music", 1, 0, "MusicManager");
     QQmlApplicationEngine engine;

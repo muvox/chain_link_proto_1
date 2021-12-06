@@ -32,11 +32,19 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/libs.xml \
+    components/images/NWA_100Mile_CoverAr_Source_1000164381_1024x.jpg \
+    components/images/appMenu.png \
     components/images/appMenu.svg \
+    components/images/google_maps.png \
     components/images/google_maps.svg \
+    components/images/next-previous.png \
+    components/images/pause.png \
     components/images/place_holder.png \
+    components/images/play.png \
     components/images/spotify.svg \
+    components/images/storytel.png \
     components/images/storytel.svg \
+    components/images/strava.png \
     components/images/strava.svg
 
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
@@ -60,3 +68,5 @@ android{
 HEADERS += \
     IntentHandler.h \
     MusicManager.h
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

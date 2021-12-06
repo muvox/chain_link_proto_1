@@ -8,5 +8,13 @@
         <file>components/images/spotify.svg</file>
         <file>components/images/storytel.svg</file>
         <file>components/images/strava.svg</file>
+        <file>components/images/appMenu.png</file>
+        <file>components/images/google_maps.png</file>
+        <file>components/images/next-previous.png</file>
+        <file>components/images/NWA_100Mile_CoverAr_Source_1000164381_1024x.jpg</file>
+        <file>components/images/pause.png</file>
+        <file>components/images/play.png</file>
+        <file>components/images/storytel.png</file>
+        <file>components/images/strava.png</file>
     </qresource>
 </RCC>

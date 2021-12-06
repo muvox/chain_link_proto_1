@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.app.PendingIntent;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.view.KeyEvent;
 import android.os.SystemClock;
 
@@ -14,6 +15,16 @@ public class MusicManager {
         Context mContext = QtNative.activity().getApplicationContext();
         return (AudioManager)mContext.getSystemService(mContext.AUDIO_SERVICE);
         }
+
+//    public String[] ti(){
+//        Context mContext = QtNative.activity().getApplicationContext();
+//        int sound_file_id = QtNative.activity().getResources().getIdentifier("sound", "raw", mContext.getPackageName());
+//        MediaPlayer mp = MediaPlayer.create(mContext, sound_file_id);
+//        MediaPlayer.TrackInfo[] buff = mp.getTrakcInfo();
+
+//        String[] stuff = { "stuff1", "stuff2" };
+//        return stuff;
+//        }
 
     public String test() {
         return "testing test in musicmanager";
